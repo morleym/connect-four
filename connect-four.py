@@ -1,5 +1,3 @@
-## First System: The Data
-
 # Initializing The Grid. A 7 x 6 grid where tokens can go
 
 grid = [
@@ -12,6 +10,7 @@ grid = [
     ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]'],
 ]
 
+# Player objects. Could build on this more with things like win-tracking
 player_1 = {
     'name': 'Player 1',
     'letter': 'X'
@@ -42,7 +41,7 @@ def print_grid():
         print(' ' + str(i) + ' ', end=' ')
     print()
 
-
+# How to put things into the grid
 def place_token(letter, col):
     for j, cell in enumerate(grid[col]):
         if cell == '[ ]':
@@ -51,7 +50,7 @@ def place_token(letter, col):
 
 
 # let's scope out handling people writing letters instead of a number because python isn't nice about str/int interoperability
-
+# but need to validate things like valid col number, the col not being full, etc.
 def player_input(player):
     valid_input = False
     col = -1
