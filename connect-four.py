@@ -12,38 +12,35 @@ grid = [
     ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]'],
 ]
 
+player_1 = {
+    'name': 'Player 1',
+    'letter': 'X'
+}
+
+player_2 = {
+    'name': 'Player 2',
+    'letter': 'O'
+}
+
 ## System 1.5: Printing The Grid
 
 def print_grid():
-    # Initialize Print Grid
-    print_grid = [
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-        ['[ ]','[ ]','[ ]','[ ]','[ ]','[ ]', '[ ]'],
-    ]
-    for i, column in enumerate(grid):
-        for j, cell in enumerate(column):
-            print_grid[j][i] = cell
-    
     
     # print top column labels
     for i in range(7):
         print(' ' + str(i) + ' ', end=' ')
     print()
     
-    for row in reversed(print_grid):
-        for cell in row:
-            print(cell, end=' ')
+    # print the grid
+    for j in range(5, -1, -1):
+        for i in range(7):
+            print(grid[i][j], end=' ')
         print()
     
     # print bottom column labels
     for i in range(7):
         print(' ' + str(i) + ' ', end=' ')
     print()
-
 
 
 def place_token(letter, col):
@@ -59,7 +56,7 @@ def player_input(player):
     valid_input = False
     col = -1
     while not valid_input:
-        col = input(player + ", enter a column to place your next token in: ")
+        col = input(player['name'] + ', enter a column to place your next ' + player['letter'] + ' in: ')
         col = int(col)
         if col < 0 or col > 6:
             print('Please enter a valid column number from 0 through 6')
@@ -68,10 +65,7 @@ def player_input(player):
             print('That column is full. Please select a different column')
             continue
         valid_input = True
-    if player == "Player 1":
-        place_token('X', col)
-    else:
-        place_token('O', col)
+    place_token(player['letter'], col)
     
 def is_game_over():
 
@@ -162,11 +156,11 @@ def play_game():
     print_grid()
 
     while True:
-        player_input("Player 1")
+        player_input(player_1)
         print_grid()
         if is_game_over():
             break
-        player_input("Player 2")
+        player_input(player_2)
         print_grid()
         if is_game_over():
             break
