@@ -83,15 +83,15 @@ def is_game_over():
         for i in range(7):
             if grid[i][j] == letter:
                 counter += 1
-                if counter == 4:
-                    if letter == 'X':
-                        print("Player 1 Wins!")
+                if counter == 4 and letter != '[ ]':
+                    if letter == '[X]':
+                        print("Player 1 Wins by HORIZONTAL!")
                         return True
                     else:
-                        print("Player 2 Wins!")
+                        print("Player 2 Wins by HORIZONTAL!")
                         return True
             else:
-                counter = 0
+                counter = 1
                 letter = grid[i][j]
 
     # Check for wins in columns
@@ -102,15 +102,15 @@ def is_game_over():
         for j in range(6):
             if grid[i][j] == letter:
                 counter += 1
-                if counter == 4:
-                    if letter == 'X':
-                        print("Player 1 Wins!")
+                if counter == 4 and letter != '[ ]':
+                    if letter == '[X]':
+                        print("Player 1 Wins by VERTICAL!")
                         return True
                     else:
-                        print("Player 2 Wins!")
+                        print("Player 2 Wins by VERTICAL!")
                         return True
             else:
-                counter = 0
+                counter = 1
                 letter = grid[i][j]
 
     # Check for wins in diagonals
@@ -123,10 +123,33 @@ def is_game_over():
         [3, 0],
     ]
 
+    for point in diag_start_points:
+        i = point[0]
+        j = point[1]
+        counter = 0
+        letter = grid[i][j]
+
+        while i <= 6 and j <= 5:
+            if grid[i][j] == letter:
+                counter += 1
+                if counter == 4 and letter != '[ ]':
+                    if letter == '[X]':
+                        print("Player 1 Wins by DIAGONAL!")
+                        return True
+                    else:
+                        print("Player 2 Wins by DIAGONAL!")
+                        return True
+            else:
+                counter = 1
+                letter = grid[i][j]
+            
+            i += 1
+            j += 1
+
     # Check If Board is Full
     empty_spots = False
-    for col in grid:
-        if len(col) < 6:
+    for i in range(7):
+        if grid[i][5] == '[ ]':
             empty_spots = True
             break
     if not empty_spots:
@@ -137,13 +160,17 @@ def play_game():
     print('Welcome, Players')
     print('Player 1, you are X. Player 2, you are O')
     print_grid()
-    player_input("Player 1")
-    player_input("Player 1")
-    player_input("Player 1")
-    player_input("Player 1")
-    
-    print_grid()
-    test = is_game_over()
-# Testing
 
+    while True:
+        player_input("Player 1")
+        print_grid()
+        if is_game_over():
+            break
+        player_input("Player 2")
+        print_grid()
+        if is_game_over():
+            break
+
+
+# Run it baybeeee 
 play_game()
