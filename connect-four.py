@@ -113,8 +113,8 @@ def is_game_over():
                 counter = 1
                 letter = grid[i][j]
 
-    # Check for wins in diagonals
-    diag_start_points = [
+    # Check for wins in up-and-right diagonals
+    up_right_diag_start_points = [
         [0, 2],
         [0, 1],
         [0, 0],
@@ -123,7 +123,7 @@ def is_game_over():
         [3, 0],
     ]
 
-    for point in diag_start_points:
+    for point in up_right_diag_start_points:
         i = point[0]
         j = point[1]
         counter = 0
@@ -145,6 +145,40 @@ def is_game_over():
             
             i += 1
             j += 1
+    
+    # Check the up-and-left diagonals
+    up_left_diag_start_points = [
+        [6, 2],
+        [6, 1],
+        [6, 0],
+        [5, 0],
+        [4, 0],
+        [3, 0],
+    ]
+
+    for point in up_left_diag_start_points:
+        i = point[0]
+        j = point[1]
+        counter = 0
+        letter = grid[i][j]
+
+        while i >= 0 and j <= 5:
+            if grid[i][j] == letter:
+                counter += 1
+                if counter == 4 and letter != '[ ]':
+                    if letter == '[X]':
+                        print("Player 1 Wins by DIAGONAL!")
+                        return True
+                    else:
+                        print("Player 2 Wins by DIAGONAL!")
+                        return True
+            else:
+                counter = 1
+                letter = grid[i][j]
+            
+            i -= 1
+            j += 1
+
 
     # Check If Board is Full
     empty_spots = False
