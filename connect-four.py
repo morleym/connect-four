@@ -28,23 +28,57 @@ def print_grid():
         for j, cell in enumerate(column):
             print_grid[j][i] = cell
     
+    
+    # print top column labels
+    for i in range(7):
+        print(' ' + str(i) + ' ', end=' ')
+    print()
+    
     for row in reversed(print_grid):
         for cell in row:
             print(cell, end=' ')
         print()
+    
+    # print bottom column labels
+    for i in range(7):
+        print(' ' + str(i) + ' ', end=' ')
+    print()
 
 
-# let's assume the input is valid, for now
 
-def place_token(color, col):
-    grid[col].append('[' + color + ']')
+def place_token(letter, col):
+    grid[col].append('[' + letter + ']')
 
 
-# Testing print_grid function
+# let's scope out handling people writing letters instead of a number because python isn't nice about str/int interoperability
 
-place_token('X', 0)
-place_token('X', 0)
-place_token('X', 0)
-place_token('O', 2)
+def player_input(player):
+    valid_input = False
+    col = -1
+    while not valid_input:
+        col = input(player + ", enter a column to place your next token in: ")
+        col = int(col)
+        if col < 0 or col > 6:
+            print('Please enter a valid column number from 0 through 6')
+            continue
+        elif len(grid[col]) >= 6:
+            print('That column is full. Please select a different column')
+            continue
+        valid_input = True
+    if player == "Player 1":
+        place_token('X', col)
+    else:
+        place_token('O', col)
+    
 
-print_grid()
+
+def play_game():
+    print('Welcome, Players')
+    print('Player 1, you are X. Player 2, you are O')
+    print_grid()
+    player_input("Player 1")
+    player_input("Player 2")
+    print_grid()
+# Testing
+
+play_game()
