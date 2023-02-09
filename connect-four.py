@@ -154,16 +154,21 @@ def play_game():
     print('Player 1, you are X. Player 2, you are O')
     print_grid()
 
+    move_count = 0
+
     while True:
         player_input(player_1)
+        move_count += 1
         print_grid()
         if is_game_over():
             break
         player_input(player_2)
+        move_count += 1
         print_grid()
         if is_game_over():
             break
-
+    if input("View stats? yes/no: ").lower() == 'yes':
+        print("This game took " + str(move_count) + " moves!")
 
 # Run it baybeeee 
 play_game()
